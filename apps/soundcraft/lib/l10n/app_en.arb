@@ -1,0 +1,15 @@
+{
+  "@@locale": "en",
+  "appTitle": "SoundCraft",
+  "navHome": "Home",
+  "navSearch": "Search",
+  "navLibrary": "Library",
+  "navDownloads": "Downloads",
+  "play": "Play",
+  "pause": "Pause",
+  "next": "Next track",
+  "previous": "Previous track",
+  "offlineBanner": "Offline — your library and downloads still work.",
+  "deleteConfirm": "Delete",
+  "cancel": "Cancel"
+}

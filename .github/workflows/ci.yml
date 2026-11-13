@@ -1,0 +1,40 @@
+name: SoundCraft CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  gateway:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/discovery-gateway
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - run: npx tsc --noEmit
+
+  flutter:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/soundcraft
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test -j 1 test/core test/downloads test/player
+      - run: flutter build apk --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: soundcraft-release-apk
+          path: apps/soundcraft/build/app/outputs/flutter-apk/app-release.apk
